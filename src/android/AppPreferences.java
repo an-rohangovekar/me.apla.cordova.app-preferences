@@ -28,7 +28,7 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 	private static boolean watchChanges = false;
 
 	@Override
-	protected void pluginInitialize(CordovaInterface cordova, CordovaWebView webView) {
+	protected void initialize(CordovaInterface cordova, CordovaWebView webView) {
 		cdvWebView = webView;
 	}
 
