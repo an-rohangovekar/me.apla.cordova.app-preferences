@@ -244,7 +244,7 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 			if(nv == null){
 				try {
 					callbackContext.error(createErrorObj(NULL_VALUE, "Error creating/getting json token"));
-					return;
+					//return;
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
