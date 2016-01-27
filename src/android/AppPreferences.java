@@ -35,12 +35,12 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 
 	public void onSharedPreferenceChanged (SharedPreferences sharedPreferences, final String key) {
 		Log.d("", "PREFERENCE CHANGE DETECTED FOR " + key);
-		//cordova.getThreadPool().execute(new Runnable() {
-		//	public void run() {
+		cordova.getThreadPool().execute(new Runnable() {
+			public void run() {
 		// TODO: use json
 		cdvWebView.loadUrl("javascript:cordova.fireDocumentEvent('preferencesChanged',{'key': '" + key + "'})");
-		//	}
-		//});
+			}
+		});
 	}
 
 	@Override
