@@ -223,7 +223,7 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 	}
 
 	private boolean storeValueByKey(final String key, final String type, final String value, final CallbackContext callbackContext) {
-		cordova.getThreadPool().execute(new Runnable() {public void run() {
+		/*cordova.getThreadPool().execute(new Runnable() {public void run() {*/
 
 			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity());
 
@@ -289,7 +289,7 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 				}
 			}
 
-		}});
+	/*	}});*/
 
 		return true;
 	}
