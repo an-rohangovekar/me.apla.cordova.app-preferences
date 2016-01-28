@@ -30,6 +30,7 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+		 super.initialize(cordova, webView);
 		cdvWebView = webView;
 	}
 
@@ -46,14 +47,14 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 	@Override
 	public void onResume(boolean multitasking) {
 		if (this.watchChanges)
-			PreferenceManager.getDefaultSharedPreferences(super.cordova.getActivity())
+			PreferenceManager.getDefaultSharedPreferences(cordova.getActivity())
 			.registerOnSharedPreferenceChangeListener(this);
 	}
 
 	@Override
 	public void onPause(boolean multitasking) {
 		if (this.watchChanges)
-			PreferenceManager.getDefaultSharedPreferences(super.cordova.getActivity())
+			PreferenceManager.getDefaultSharedPreferences(cordova.getActivity())
 			.unregisterOnSharedPreferenceChangeListener(this);
 	}
 
@@ -102,8 +103,8 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 	}
 
 	private boolean clearAll (final CallbackContext callbackContext) {
-		/*cordova.getThreadPool().execute(new Runnable() {public void run() {*/
-			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(super.cordova.getActivity());
+		cordova.getThreadPool().execute(new Runnable() {public void run() {
+			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity());
 
 			Editor editor = sharedPrefs.edit();
 			editor.clear();
@@ -118,17 +119,17 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 					e.printStackTrace();
 				}
 			}
-	/*	}});*/
+		}});
 		return true;
 	}
 
 	private boolean showPreferencesActivity (final CallbackContext callbackContext) {
-	/*	cordova.getThreadPool().execute(new Runnable() {public void run() {*/
+		cordova.getThreadPool().execute(new Runnable() {public void run() {
 			Class preferenceActivity;
 			try {
 				preferenceActivity = Class.forName("me.apla.cordova.AppPreferencesActivity");
-				Intent i = new Intent(super.cordova.getActivity(), preferenceActivity);
-				super.cordova.getActivity().startActivity(i);
+				Intent i = new Intent(cordova.getActivity(), preferenceActivity);
+				cordova.getActivity().startActivity(i);
 				String result = null;
 				callbackContext.success(result);
 			} catch(ClassNotFoundException e) {
@@ -138,13 +139,13 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 				callbackContext.error("Intent launch error");
 				e.printStackTrace();
 			}
-	/*	}});*/
+		}});
 		return true;
 	}
 
 	private boolean fetchValueByKey(final String key, final CallbackContext callbackContext) {
-		/*cordova.getThreadPool().execute(new Runnable() {public void run() {*/
-			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(super.cordova.getActivity());
+		cordova.getThreadPool().execute(new Runnable() {public void run() {
+			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity());
 			String returnVal = null;
 			if (sharedPrefs.contains(key)) {
 				Object obj = sharedPrefs.getAll().get(key);
@@ -184,17 +185,17 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 				// callbackContext.sendPluginResult(new PluginResult ());
 			}
 
-	/*	}
+		}
 			
-		});*/
+		});
 
 		return true;
 	}
 
 	private boolean removeValueByKey(final String key, final CallbackContext callbackContext) {
-		/*cordova.getThreadPool().execute(new Runnable() { public void run() {*/
+		cordova.getThreadPool().execute(new Runnable() { public void run() {
 
-			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(super.cordova.getActivity());
+			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity());
 
 			if (sharedPrefs.contains(key)) {
 				Editor editor = sharedPrefs.edit();
@@ -217,15 +218,15 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 				callbackContext.sendPluginResult(new PluginResult (PluginResult.Status.NO_RESULT));
 			}
 
-	/*	}});*/
+		}});
 
 		return true;
 	}
 
 	private boolean storeValueByKey(final String key, final String type, final String value, final CallbackContext callbackContext) {
-		/*cordova.getThreadPool().execute(new Runnable() {public void run() {*/
+		cordova.getThreadPool().execute(new Runnable() {public void run() {
 
-			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(super.cordova.getActivity());
+			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(cordova.getActivity());
 
 			Editor editor = sharedPrefs.edit();
 			// editor.putString(key, value);
@@ -289,7 +290,7 @@ public class AppPreferences extends CordovaPlugin implements OnSharedPreferenceC
 				}
 			}
 
-		/*}});*/
+		}});
 
 		return true;
 	}
